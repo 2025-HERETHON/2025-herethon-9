@@ -4,5 +4,5 @@ from .views import *
 app_name = 'matching'
 
 urlpatterns = [
-    
+    path('', main, name='main'),
 ]
