@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>category_searchExpert</title>
-    <link rel="stylesheet" href="../css/category_expert.css">
+    <title>reserve</title>
+    <link rel="stylesheet" href="../css/reserve.css">
 </head>
 <body>
     <div class="Container">
@@ -18,6 +18,7 @@
                             width="136px"
                         />
                     </a>
+                    
                 </div>
                 <div class="T_Category"><a href="../pages/category.html" class="T_Category">카테고리</a></div>
                 <div class="T_Search"><a href="../pages/expert.html" class="T_Search">전문가찾기</a></div>
@@ -28,78 +29,51 @@
             </div>
            <button class="Btn" id="loginSection" style="display:none;">로그인/회원가입</button>
         </div>
-        <div class="Category">
-            <div class="C1">
-                <img
-                    src="../assets/img/main_C1.svg"
-                    alt="repair"
-                    width="222.516px"
-                />
-            </div>
-            <div class="C2">
-                <img
-                    src="../assets/img/main_C2.svg"
-                    alt="sports"
-                    width="222.516px"
-                />
-            </div>
-            <div class="C3">
-                <img
-                    src="../assets/img/main_C3.svg"
-                    alt="consulting"
-                    width="222.516px"
-                />
-            </div>
-            <div class="C4">
-                <img
-                    src="../assets/img/main_C4.svg"
-                    alt="life"
-                    width="222.516px"
-                />
-            </div>
-        </div>
-        <div class="Line"></div>
 
-        <div class="ResultFilter">
-            <div class="ResultText"></div>
-            <button class="Region">
-                지역
+        
+            <div class="ReserveInfo">
                 <img
-                    src="../assets/img/filter.svg"
-                    alt="filter"
-                    width="12.6px"
+                    src="../assets/img/profile.svg"
+                    alt="profile"
+                    width="114px"
+                    class="InfoImg"
                 />
-            </button>
-            <div class="Regioncheck" id="RegionList"></div>
+                <div clss="InfoText">
+                    <div class="Nickname">전문가 닉네임</div>
+                    <div class="Category">카테고리(가전/수리)</div>
+                </div>
+            </div>
+            <div class="ResLine"></div>
+            <div class="Q1">
+                <span class="QNum">01</span>
+                <span class="QText"> 가능 예약 일자를 선택해 주세요.</span>
+            </div>
+            <div class="ChoiceDay">
+                <input type="date" id="datePicker" style="display: none;"/>
+                <img
+                    src="../assets/img/add_day.svg"
+                    width="44px"
+                    class="ChoiceBtn"
+                />
+            </div>
+            <div class="ResLine"></div>
+            <div class="Q2">
+                <span class="QNum">02</span>
+                <span class="QText">가능 예약 시간대를 선택해 주세요.</span>
+            </div>
+            <div class="TimeBtnBox">
 
-            <button class="Work">
-                경력
-            <img
-                    src="../assets/img/filter.svg"
-                    alt="filter"
-                    width="12.6px"
-            />
-            </button>
-            <div class="WorkCheck"></div>
-
-            <button class="Badge">
-                인증배지
-            <img
-                src="../assets/img/filter.svg"
-                alt="filter"
-                width="12.6px"
-            />
-            </button>
-            <div class="BadgeCheck"></div>
+            </div>
+            <div class="ResLine"></div>
+            <div class="Q3">
+                <span class="QNum">03</span>
+                <span class="QText">요청사항을 입력해 주세요.</span>
+            </div>
+            <textarea class="Request" placeholder="요청사항 입력 최대(200자)" maxlength="200"></textarea>
+            <button class="ReserveBtn">저장하기</button>
         </div>
-        <div class="ExpertBoxes">
-            
-        </div>
-        <button class="ShowAllBtn">
-            <span class="Count"></span>
-            <span class="ShowText"> 개의 결과 전체보기</span>
-        </button>
-    </div>
+  
+        
     <footer class="Footer">
         <div class="Workher">
             <div class="B_Text">MY workHER 마이워커</div>
@@ -117,6 +91,6 @@
             <div class="S_Text">BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드</div>
         </div>
     </footer>
-    <script src="../js/category_expert.js"></script>
+    <script src="../js/reserve.js"></script>
 </body>
 </html>

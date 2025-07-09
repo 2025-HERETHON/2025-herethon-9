@@ -4,12 +4,12 @@ html,body{
     display: flex;
     flex-direction: column;
 }
-
 .Container{
+flex: 1;
 width: 100%;
-height: 950px;
-margin-bottom: 0;
- margin: 0 auto;
+margin: 0 auto;
+flex-direction: column;
+margin-bottom: 190px;
 }
 
 .Header{
@@ -28,7 +28,7 @@ box-sizing: border-box;
 .LeftGroup {
   display: flex;
   align-items: center;
-  gap: 2rem; 
+  gap: 40px; 
 }
 
 .Logo{
@@ -37,22 +37,23 @@ margin-right: 57px;
 }
 
 .T_Category{
-color: #0D5BDA;
+color: #000;
 font-family: "Noto Sans KR";
 font-size: 24px;
 font-style: normal;
-font-weight: 600;
+font-weight: 400;
 line-height: normal;
 cursor: default;
 text-decoration: none;
 }
 
 .T_Search{
-color: #000;
+cursor: default;
+color: #0D5BDA;
 font-family: "Noto Sans KR";
 font-size: 24px;
 font-style: normal;
-font-weight: 400;
+font-weight: 600;
 line-height: normal;
 cursor: default;
 text-decoration: none;
@@ -126,23 +127,6 @@ text-underline-offset: auto;
 text-underline-position: from-font;   
 }
 
-.Category{
-    margin-top: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.Line{
-width: 930px;
-height: 2px;
-background: #CBCBCB;
-margin: 41px auto;
-}
-
-
-
 .Footer{
 width: 100%;
 height: 211px;
@@ -187,51 +171,187 @@ background: #CBCBCB;
 margin-top: 33px;
 }
 
-
-.Subs {
-display: grid;
-justify-content: center;
-grid-template-columns: repeat(2, 270px);
-gap: 30px 195px;
-}
-
-.SubItem {
+.ReserveInfo{
 display: flex;
-width: 270px;
 align-items: center;
-
+margin-left: 365px;
+margin-top: 63px;
+margin-bottom: 56px;
+gap: 32px;
 }
 
-.name{
+.InfoText{
+display: flex;
+flex-direction: column;
+}
+
+.Nickname{
 color: #000;
-text-align: center;
 font-family: "Noto Sans KR";
-font-size: 24px;
+font-size: 29.059px;
 font-style: normal;
-font-weight: 400;
+font-weight: 500;
 line-height: normal;
-margin-right: 15px;
+}
+
+.Category{
+color: #0D5BDA;
+font-family: "Noto Sans KR";
+font-size: 23.247px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.ResLine{
+width: 930px;
+height: 2px;
+background: #CBCBCB;
+margin: 0 auto 33px auto;
+}
+
+.Q1{
+display: flex;
+gap: 15px;
+align-items: center;
+margin-left: 385px;
+}
+
+.QNum{
+color: #0D5BDA;
+font-family: "Noto Sans KR";
+font-size: 28.247px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.QText{
+color: #000;
+font-family: "Noto Sans KR";
+font-size: 23.539px;
+font-style: normal;
+font-weight: 500;
+line-height: normal; 
+}
+
+.ChoiceDay{
+margin-left: 385px;
+margin-top: 25px;
+min-height: 250px;
+gap: 17px;
+display: flex;
+flex-wrap: wrap;
+max-width: 550px;
+}
+
+.ChoiceBtn{
+width: 44px;
+height: 44px;
 cursor: pointer;
+display: inline-block
 }
-.subCount{
-color: #0D5BDA;
-text-align: center;
-font-family: "Noto Sans KR";
-font-size: 18.202px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-cursor: default;
+
+.Q2{
+display: flex;
+gap: 15px;
+align-items: center;
+margin-left: 385px;
 }
-.count{
-color: #0D5BDA;
+
+
+.Q3{
+display: flex;
+gap: 15px;
+align-items: center;
+margin-left: 385px;
+}
+
+.Request{
+display: flex;
+width: 900px;
+height: 159px;
+padding: 18.697px 20.062px;
+align-items: flex-start;
+gap: 8.723px;
+flex-shrink: 0;
+border-radius: 6.106px;
+background: #ECF0F5;
+margin-left: 375px;
+margin-top: 20px;
+border: none;
+outline: none;
+resize: none;
+}
+
+.ReserveBtn{
+display: block;
+padding: 12.773px 31.931px;
+justify-content: center;
+align-items: center;
+gap: 12.773px;
+border-radius: 383.175px;
+background: #0D5BDA;
+color: #FFF;
 font-family: "Noto Sans KR";
-font-size: 18.202px;
+font-size: 30.654px;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
+border: none;
+margin: 67px auto 130px auto;
+cursor: pointer;
 }
 
-.Category .faded{
-opacity: 0.3;
+.SelectedDate{
+display: inline-flex;
+align-items: center;
+padding-left: 25px;
+gap: 12.317px;
+border-radius: 30.793px;
+background: #FFF;
+box-shadow: 0px 0px 5.44px 0px rgba(0, 0, 0, 0.25);
+width: 130px;
+height: 40px;
+cursor: pointer;
+}
+
+#datePicker{
+width: 130px;
+height: 44px;
+}
+
+.TimeBtnBox{
+display: flex;
+column-gap: 16px;
+row-gap: 14px;
+margin-left: 375px;
+margin-top: 30px;
+max-width: 654px;
+flex-wrap: wrap;
+margin-bottom: 134px;
+}
+
+.TimeBtn{
+display: flex;
+padding: 6.765px 14.497px;
+align-items: center;
+border-radius: 28.994px;
+background: #FFF;
+box-shadow: 0px 0px 5.122px 0px rgba(0, 0, 0, 0.25);
+border: none;
+outline: none;
+width: 78px;
+height: 41px;
+color: #000;
+font-family: "Noto Sans KR";
+font-size: 19.329px;
+font-style: normal;
+font-weight: 400;
+line-height: 1;
+}
+
+.TimeBtn.selected{
+  background-color: #ECF0F5;
+  color: #0D5BDA;
 }
