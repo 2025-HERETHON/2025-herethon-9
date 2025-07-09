@@ -251,7 +251,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
 
 
-    const badgeChoice = ["인증배지 보유"];
     const badgeList = document.querySelector(".BadgeCheck");
 
     if(badgeList){
@@ -366,15 +365,51 @@ document.addEventListener("DOMContentLoaded", ()=>{
             introduce: "10년차 운동전문가",
             description: "헬스트레이닝, 요가, 필라테스, 운동 루틴 설계 및 식단 코칭",
             hasBadge: false
+        },
+        {
+            nickname: "김영희 전문가",
+            introduce: "가전 수리 경력 15년",
+            description: "에어컨, 세탁기, 냉장고 수리 전문. 친절한 서비스 제공.",
+            hasBadge: true
+        },
+        {
+            nickname: "이철수 전문가",
+            introduce: "비즈니스 컨설팅 전문가",
+            description: "스타트업 경영 전략, 마케팅 플랜, 팀 조직 구조 설계 지원.",
+            hasBadge: false
+        },
+        {
+            nickname: "박지은 전문가",
+            introduce: "생활 코칭 전문가",
+            description: "시간 관리, 정리 정돈, 효율적인 일상 루틴 설계 도와드립니다.",
+            hasBadge: true
+        },
+        {
+            nickname: "조민수 전문가",
+            introduce: "헬스/필라테스 트레이너",
+            description: "개인 맞춤 운동 플랜 제공. 체형 교정 및 다이어트 특화.",
+            hasBadge: false
+        },
+        {
+            nickname: "정가은 전문가",
+            introduce: "정수기 설치 전문가",
+            description: "깔끔하고 빠른 설치 보장, 수질 개선 상담까지 함께.",
+            hasBadge: true
         }
+
     ];
 
     const expertContainer = document.querySelector(".ExpertBoxes");
 
+    let isShowAll = false;
+    const defaultShowNum=5;
+
     function makeExperts(experts){
         expertContainer.innerHTML ="";
 
-        experts.forEach((expert)=>{
+        const showExperts = isShowAll ? experts: experts.slice(0,defaultShowNum)
+
+        showExperts.forEach((expert)=>{
             const box = document.createElement("div");
             box.className = "ExpertBox";
 
@@ -420,13 +455,23 @@ document.addEventListener("DOMContentLoaded", ()=>{
             box.appendChild(profileImg);
             box.appendChild(expertInfo);
             
-
+            box.addEventListener("click",()=>{
+                window.location.href="./expert_detail.html?name="+encodeURIComponent(expert.nickname);
+            })
             expertContainer.appendChild(box);
         });
     }
+
+  
 
     makeExperts(experts);
 
     const showCount = document.querySelector(".Count");
     showCount.textContent=count;
+
+    const showAllBtn = document.querySelector(".ShowAllBtn");
+    showAllBtn.addEventListener("click", () => {
+        isShowAll = isShowAll ? false :  true;
+        makeExperts(experts);
+    })
 }); 
