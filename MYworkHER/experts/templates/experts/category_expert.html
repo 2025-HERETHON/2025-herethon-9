@@ -157,9 +157,9 @@
   <!-- 전문가 카드 리스트 -->
   <div class="ExpertBoxes">
     {% for expert in experts %}
-      <div class="ExpertBox" onclick="location.href='{% url 'experts:detail' expert.user.nickname %}'" style="cursor:pointer;">
+      <div class="ExpertBox" onclick="location.href='{% url 'experts:expert_detail' expert.id %}'" style="cursor:pointer;">
         <img 
-          src="{%static img/profile.svg%}"
+          src="{% static 'img/profile.svg' %}"
           alt = "profile"
           width="74px"
           class="img"
