@@ -45,34 +45,34 @@
         {% endif %}
       </div>
       <div class="Category">
-        <div class="C1" data-key="appliance">
+        <a href="{% url 'experts:expert' %}?category=appliance" class="C1 {% if request.GET.category != 'appliance' %}faded{% endif %}">
           <img
             src="{% static 'img/main_C1.svg' %}"
             alt="repair"
             width="222.516px"
           />
-        </div>
-        <div class="C2" data-key="health">
+        </a>
+         <a href="{% url 'experts:expert' %}?category=health" class="C2 {% if request.GET.category != 'health' %}faded{% endif %}">
           <img
             src="{% static 'img/main_C2.svg' %}"
             alt="sports"
             width="222.516px"
           />
-        </div>
-        <div class="C3" data-key="business">
+        </a>
+       <a href="{% url 'experts:expert' %}?category=business" class="C3 {% if request.GET.category != 'business' %}faded{% endif %}">
           <img
             src="{% static 'img/main_C3.svg'%}"
             alt="consulting"
             width="222.516px"
           />
-        </div>
-        <div class="C4" data-key="lifestyle">
+        </a>
+       <a href="{% url 'experts:expert' %}?category=lifestyle" class="C4 {% if request.GET.category != 'lifestyle' %}faded{% endif %}">
           <img
             src="{% static 'img/main_C4.svg'%}"
             alt="life"
             width="222.516px"
           />
-        </div>
+        </a>
       </div>
       <div class="Line"></div>
   
@@ -100,14 +100,25 @@
         />
       </button>
       <div class="Regioncheck">
-      {% for region in region_list %}
-        <label class="custom-checkbox">
-          <input class="checkbox" type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
-          <span class="checkmark"></span>
-          {{ region }}
-        </label>
+        <div class="RegionTop">
+          <label class="custom-checkbox">
+            <input class="checkbox" type="checkbox" id="checkAll" name="region" value="all">
+              {% if 'all' in selected_region %}checked{% endif %}
+            <span class="checkmark"></span>
+            <span class="checkbox-label">서울시 전체</span>
+          </label>
+        </div>
+        <div class="RegionLine"></div>
+        <div class="RegionGrid">
+          {% for region in region_list %}
+            <label class="custom-checkbox">
+              <input class="checkbox" type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">{{region}}</span>
+            </label>
       {% endfor %}
       </div>
+    </div>
     
 
     
@@ -120,11 +131,26 @@
         />
       </button>
       <div class="WorkCheck">
-      <label class="custom-checkbox"><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}><span class="checkmark"></span> 1년 미만</label>
-      <label class="custom-checkbox"><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}><span class="checkmark"></span> 1년~3년</label>
-      <label class="custom-checkbox"><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}><span class="checkmark"></span>3년~5년</label>
-      <label class="custom-checkbox"><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}><span class="checkmark"></span> 5년 이상</label>
+        <div class="WorkTop">
+          <label class="custom-checkbox">
+            <input class="checkbox" type="checkbox" name="experience" value="0"
+               {% if '0' in selected_experience %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">경력 무관</span>
+          </label>
+        </div>
+        <div class="WorkLine"></div>
+
+        {% for val, label in [('0', '1년 미만'), ('1', '1년~3년'), ('3', '3년~5년'), ('5', '5년 이상')] %}
+          <label class="custom-checkbox">
+            <input class="checkbox" type="checkbox" name="experience" value="{{ val }}"
+              {% if val in selected_experience %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">{{ label }}</span>
+          </label>
+        {% endfor %}
       </div>
+
   
 
     
@@ -137,10 +163,21 @@
         />
       </button>
       <div class="BadgeCheck">
+        <div class="BadgeTop">
+          <label class="custom-checkbox">
+            <input class="checkbox" type="checkbox" name="badge" value="all"
+              {% if not badge %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">전체</span>
+          </label>
+        </div>
+        <div class="BadgeLine"></div>
+
         <label class="custom-checkbox">
-        <input type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
-        <span class="checkmark"></span>
-        인증배지 보유
+          <input class="checkbox" type="checkbox" name="badge" value="true"
+            {% if badge %}checked{% endif %}>
+          <span class="checkmark"></span>
+          <span class="checkbox-label">인증배지 보유</span>
         </label>
       </div>
     </div>
@@ -193,6 +230,7 @@
     <span class="Count">{{ total_count }}</span>
     <span class="ShowText"> 개의 결과 전체보기</span>
   </button>
+
   <footer class="Footer">
       <div class="Workher">
         <div class="B_Text">MY workHER 마이워커</div>

@@ -9,6 +9,7 @@ width: 100%;
 margin: 0 auto;
 flex-direction: column;
 margin-bottom: 190px;
+flex: 1;
 }
 
 .Header{
@@ -490,6 +491,7 @@ border: none;
 outline: none;
 margin: 0 auto;
 margin-top: 24px;
+margin-bottom: 190px;
 }
 
 .Count{
@@ -510,3 +512,7 @@ font-weight: 400;
 line-height: normal;  
 }
 
+.Category a{
+text-decoration: none;
+display: inline-block;
+}
