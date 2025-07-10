@@ -155,30 +155,43 @@
   </script>
 
   <!-- 전문가 카드 리스트 -->
-  {% for expert in experts %}
-    <div class="ExpertBoxes">
-      <div class="ExpertBox">
-        <strong class="Nickname">{{ expert.user.nickname }}</strong>
+  <div class="ExpertBoxes">
+    {% for expert in experts %}
+      <div class="ExpertBox" onclick="location.href='{% url 'experts:detail' expert.user.nickname %}'" style="cursor:pointer;">
+        <img 
+          src="{%static img/profile.svg%}"
+          alt = "profile"
+          width="74px"
+          class="img"
+        />
+        <div class="ExpertInfo">
+          <div class="NicknameDiv">
+            <div class="Nickname">{{ expert.user.nickname }}</div>
         {% if expert.badge == 'VERIFIED' %}
-          <span>✔️</span>
+          <img class="BadgeIcon"
+           src="{% static 'img/badgeicon.svg' %}"
+           alt="badge"
+           width="33px"
+          >
         {% endif %}
       </div>
       <div class="ExpertInfo">
         {{ expert.bio }}
       </div>
-      <div class="">
+      <div class="Description">
         {{ expert.description|truncatechars:100 }}
       </div>
     </div>
-    <hr>
   {% empty %}
     <p>해당 카테고리에 등록된 전문가가 없습니다.</p>
   {% endfor %}
+  </div>
 
   <!-- 전체보기 버튼 (예시용) -->
-  <div>
-    {{ total_count }} 개의 결과 전체보기
-  </div>
+  <button class="ShowAllBtn">
+    <span class="Count">{{ total_count }}</span>
+    <span class="ShowText"> 개의 결과 전체보기</span>
+  </button>
   <footer class="Footer">
       <div class="Workher">
         <div class="B_Text">MY workHER 마이워커</div>

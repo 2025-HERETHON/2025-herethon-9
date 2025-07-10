@@ -20,38 +20,27 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     const urlParams = new URLSearchParams(window.location.search);
 
-    const categoryClass = urlParams.get("category");
+    const categoryKey = urlParams.get("category");
     const categoryMap ={
-        C1: "가전/수리",
-        C2: "헬스/스포츠",
-        C3: "컨설팅/비지니스",
-        C4: "생활/라이프",
+        appliance: "가전/수리",
+        health: "헬스/스포츠",
+        consulting: "컨설팅/비지니스",
+        life: "생활/라이프",
     };
-    const category = categoryMap[categoryClass];
+    const category = categoryMap[categoryKey];
     const name = urlParams.get("name");
     const count = urlParams.get("count");
-
+    
     const categoryImages = document.querySelectorAll(".Category div");
 
-    categoryImages.forEach((el)=> el.classList.add("faded"));
-
-    const selectCategory = document.querySelector(`.Category .${categoryClass}`);
-    if(selectCategory){
-        selectCategory.classList.remove("faded");
-    }
-
-    const resultText = document.querySelector(".ResultText");
-
-    if(resultText){
-        resultText.innerHTML=`
-        <span class="BlueText">${category}</span>
-        <span class="BlackText">></span>
-        <span class="BlueText">${name}</span>
-        <span class="BlackText"> 에 해당하는 </span>
-        <span class="BlueText">${count}</span>
-        <span class="BlackText">명의 전문가가 있습니다.</span>
-    `;
-    }
+    categoryImages.forEach((el)=> {
+        const key = el.getAttribute("data-key");
+        if(key !== categoryKey){
+            el.classList.add("faded");
+        }else{
+            el.classList.remove("faded");
+        }
+    });
 
     const seoulDistricts = [
         "강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", 
