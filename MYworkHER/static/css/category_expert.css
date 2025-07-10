@@ -423,6 +423,8 @@ border-radius: 15.776px;
 border: 0.789px solid #CBCBCB;
 background: #FFF;
 display: flex;
+text-decoration: none;
+color: inherit;
 }
 
 .img{

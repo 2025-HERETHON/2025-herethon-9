@@ -157,7 +157,7 @@
   <!-- 전문가 카드 리스트 -->
   <div class="ExpertBoxes">
     {% for expert in experts %}
-      <div class="ExpertBox" onclick="location.href='{% url 'experts:expert_detail' expert.id %}'" style="cursor:pointer;">
+      <a href="{% url 'experts:expert_detail' expert.id %}" class="ExpertBox">
         <img 
           src="{% static 'img/profile.svg' %}"
           alt = "profile"
@@ -175,13 +175,14 @@
           >
         {% endif %}
       </div>
-      <div class="ExpertInfo">
+      <div class="Introduce">
         {{ expert.bio }}
       </div>
       <div class="Description">
         {{ expert.description|truncatechars:100 }}
       </div>
     </div>
+  </a>
   {% empty %}
     <p>해당 카테고리에 등록된 전문가가 없습니다.</p>
   {% endfor %}
