@@ -75,16 +75,22 @@
         </div>
       </div>
       <div class="Line"></div>
-  <div>
-    <span>{{ category_label }} > {{ subcategory_label }}</span> 에 해당하는 
-    <strong>{{ total_count }}</strong> 명의 전문가가 있습니다.
-  </div>
+  
 
-  <form id="expert-filter-form" method="get">
+  <form id="expert-filter-form" method="get" class="ResultFilter">
     <input type="hidden" name="category" value="{{ request.GET.category }}">
     <input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">
 
-    <div>
+    <div class="ResultFilter">
+      <div>
+        <span class="BlueText">{{ category_label }}</span>
+        <span class="BlackText"> > </span>
+        <span class="BlueText">{{ subcategory_label }}</span>
+        <span class="BlackText"> 에 해당하는</span> 
+        <span class="BlueText">{{ total_count }}</span>
+        <span class="BlackText"> 명의 전문가가 있습니다.</span>
+      </div>
+
       <button class="Region">
         지역
         <img
@@ -92,16 +98,19 @@
           alt="filter"
           width="12.6px"
         />
-      </button><br>
+      </button>
+      <div class="Regioncheck">
       {% for region in region_list %}
-        <label>
-          <input type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
+        <label class="custom-checkbox">
+          <input class="checkbox" type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
+          <span class="checkmark"></span>
           {{ region }}
         </label>
       {% endfor %}
-    </div>
+      </div>
+    
 
-    <div>
+    
       <button class="Work">
         경력
         <img
@@ -109,18 +118,31 @@
           alt="filter"
           width="12.6px"
         />
-      </button><br>
-      <label><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}> 1년 미만</label>
-      <label><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}> 1년~3년</label>
-      <label><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}> 3년~5년</label>
-      <label><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}> 5년 이상</label>
-    </div>
+      </button>
+      <div class="WorkCheck">
+      <label class="custom-checkbox"><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}><span class="checkmark"></span> 1년 미만</label>
+      <label class="custom-checkbox"><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}><span class="checkmark"></span> 1년~3년</label>
+      <label class="custom-checkbox"><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}><span class="checkmark"></span>3년~5년</label>
+      <label class="custom-checkbox"><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}><span class="checkmark"></span> 5년 이상</label>
+      </div>
+  
 
-    <div>
-      <label>
+    
+      <button class="Badge">
+        인증배지
+        <img
+          src="{% static 'img/filter.svg'%}"
+          alt="filter"
+          width="12.6px"
+        />
+      </button>
+      <div class="BadgeCheck">
+        <label class="custom-checkbox">
         <input type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
+        <span class="checkmark"></span>
         인증배지 보유
-      </label>
+        </label>
+      </div>
     </div>
   </form>
 
