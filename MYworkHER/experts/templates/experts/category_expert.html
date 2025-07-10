@@ -1,11 +1,80 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>전문가 리스트</title>
+  <link rel="stylesheet" href="{%static 'css/category_expert.css'%}">
 </head>
 <body>
-
+  <div class="Container">
+      <!--Header-->
+      <div class="Header">
+        <div class="LeftGroup">
+          <div class="Logo">
+            <a href="{% url 'matching:main' %}">
+              <img src="{% static 'img/logo.svg' %}" alt="logo" width="136px" />
+            </a>
+          </div>
+          <div class="T_Category">
+            <a href="{% url 'experts:category_list' %}" class="T_Category"
+              >카테고리</a
+            >
+          </div>
+          <div class="T_Search">
+            <a href="{% url 'experts:expert' %}" class="T_Search">전문가찾기</a>
+          </div>
+          {% if request.user.is_authenticated%}
+          <div class="T_Chat">
+            <a href="{% url 'chats:chat_list'%}">1:1상담</a>
+            {% if unread_chat_total > 0 %}
+            <div class="Alarm"></div>
+            {%endif%}
+          </div>
+          <div class="T_Mypage">
+            <a href="{% url 'accounts:mypage' %}">마이페이지</a>
+          </div>
+        </div>
+        <div class="Logout">
+          <a href="{% url 'accounts:logout' %}">로그아웃</a>
+        </div>
+        {%else%}
+        <button class="Btn" id="loginSection" style="display: none">
+          <a href="{% url 'accounts:login'%}">로그인/회원가입</a>
+        </button>
+        {% endif %}
+      </div>
+      <div class="Category">
+        <div class="C1" data-key="appliance">
+          <img
+            src="{% static 'img/main_C1.svg' %}"
+            alt="repair"
+            width="222.516px"
+          />
+        </div>
+        <div class="C2" data-key="health">
+          <img
+            src="{% static 'img/main_C2.svg' %}"
+            alt="sports"
+            width="222.516px"
+          />
+        </div>
+        <div class="C3" data-key="business">
+          <img
+            src="{% static 'img/main_C3.svg'%}"
+            alt="consulting"
+            width="222.516px"
+          />
+        </div>
+        <div class="C4" data-key="lifestyle">
+          <img
+            src="{% static 'img/main_C4.svg'%}"
+            alt="life"
+            width="222.516px"
+          />
+        </div>
+      </div>
+      <div class="Line"></div>
   <div>
     <span>{{ category_label }} > {{ subcategory_label }}</span> 에 해당하는 
     <strong>{{ total_count }}</strong> 명의 전문가가 있습니다.
@@ -16,7 +85,14 @@
     <input type="hidden" name="subcategory" value="{{ request.GET.subcategory }}">
 
     <div>
-      <strong>지역</strong><br>
+      <button class="Region">
+        지역
+        <img
+          src="{% static 'img/filter.svg'%}"
+          alt="filter"
+          width="12.6px"
+        />
+      </button><br>
       {% for region in region_list %}
         <label>
           <input type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
@@ -26,7 +102,14 @@
     </div>
 
     <div>
-      <strong>경력</strong><br>
+      <button class="Work">
+        경력
+        <img
+          src="{% static 'img/filter.svg'%}"
+          alt="filter"
+          width="12.6px"
+        />
+      </button><br>
       <label><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}> 1년 미만</label>
       <label><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}> 1년~3년</label>
       <label><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}> 3년~5년</label>
@@ -51,17 +134,17 @@
 
   <!-- 전문가 카드 리스트 -->
   {% for expert in experts %}
-    <div>
-      <div>
-        <strong>{{ expert.user.nickname }}</strong>
+    <div class="ExpertBoxes">
+      <div class="ExpertBox">
+        <strong class="Nickname">{{ expert.user.nickname }}</strong>
         {% if expert.badge == 'VERIFIED' %}
           <span>✔️</span>
         {% endif %}
       </div>
-      <div>
+      <div class="ExpertInfo">
         {{ expert.bio }}
       </div>
-      <div>
+      <div class="">
         {{ expert.description|truncatechars:100 }}
       </div>
     </div>
@@ -74,6 +157,38 @@
   <div>
     {{ total_count }} 개의 결과 전체보기
   </div>
-
+  <footer class="Footer">
+      <div class="Workher">
+        <div class="B_Text">MY workHER 마이워커</div>
+        <div class="S_Text">"당신을 위한 여성 전문가"</div>
+        <div class="S_Text">
+          마이워커는 가전/수리, 헬스/스포츠, 컨설팅/비지니스 등 다양한 분야에서
+          여성 고객과 여성 전문가의 커넥션을 지원하며,
+        </div>
+        <div class="S_Text">
+          여성 가치 증진을 목적으로 하는 혁신 플랫폼입니다.
+        </div>
+      </div>
+      <div class="L_Line"></div>
+      <div class="About">
+        <div class="B_Text">About us</div>
+        <div class="S_Text">
+          PM/DE 김민서 - 숙명여자대학교 멋쟁이 사자처럼 기획/디자인
+        </div>
+        <div class="S_Text">
+          FE 신채영 - 동덕여자대학교 멋쟁이사자처럼 프론트엔드
+        </div>
+        <div class="S_Text">
+          FE 정규은 - 서울여자대학교 멋쟁이사자처럼 프론트엔드
+        </div>
+        <div class="S_Text">
+          BE 고희주 - 덕성여자대학교 멋쟁이사자처럼 백엔드
+        </div>
+        <div class="S_Text">
+          BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드
+        </div>
+      </div>
+    </footer>
+    <script src="{% static 'js/category_expert.js'%}"></script>
 </body>
 </html>

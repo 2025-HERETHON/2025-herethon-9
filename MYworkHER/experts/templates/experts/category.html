@@ -1,30 +1,141 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>전문가 카테고리</title>
-</head>
-<body>
-  {% for key, cat in categories.items %}
-    <div class="category-box" onclick="toggleSub('{{ key }}')">
+  <head>
+    <meta charset="UTF-8" />
+    <title>전문가 카테고리</title>
+    <link rel="stylesheet" href="{%static 'css/category.css'%}" />
+  </head>
+  <body>
+    <div class="Container">
+      <!--Header-->
+      <div class="Header">
+        <div class="LeftGroup">
+          <div class="Logo">
+            <a href="{% url 'matching:main' %}">
+              <img src="{% static 'img/logo.svg' %}" alt="logo" width="136px" />
+            </a>
+          </div>
+          <div class="T_Category">
+            <a href="{% url 'experts:category_list' %}" class="T_Category"
+              >카테고리</a
+            >
+          </div>
+          <div class="T_Search">
+            <a href="{% url 'experts:expert' %}" class="T_Search">전문가찾기</a>
+          </div>
+          {% if request.user.is_authenticated%}
+          <div class="T_Chat">
+            <a href="{% url 'chats:chat_list'%}">1:1상담</a>
+            {% if unread_chat_total > 0 %}
+            <div class="Alarm"></div>
+            {%endif%}
+          </div>
+          <div class="T_Mypage">
+            <a href="{% url 'accounts:mypage' %}">마이페이지</a>
+          </div>
+        </div>
+        <div class="Logout">
+          <a href="{% url 'accounts:logout' %}">로그아웃</a>
+        </div>
+        {%else%}
+        <button class="Btn" id="loginSection" style="display: none">
+          <a href="{% url 'accounts:login'%}">로그인/회원가입</a>
+        </button>
+        {% endif %}
+      </div>
+      <div class="Category">
+        <div class="C1" data-key="appliance">
+          <img
+            src="{% static 'img/main_C1.svg' %}"
+            alt="repair"
+            width="222.516px"
+          />
+        </div>
+        <div class="C2" data-key="health">
+          <img
+            src="{% static 'img/main_C2.svg' %}"
+            alt="sports"
+            width="222.516px"
+          />
+        </div>
+        <div class="C3" data-key="business">
+          <img
+            src="{% static 'img/main_C3.svg'%}"
+            alt="consulting"
+            width="222.516px"
+          />
+        </div>
+        <div class="C4" data-key="lifestyle">
+          <img
+            src="{% static 'img/main_C4.svg'%}"
+            alt="life"
+            width="222.516px"
+          />
+        </div>
+      </div>
+      <div class="Line"></div>
+    </div>
+
+    {% for key, cat in categories.items %}
+    <div id="sub-{{key}}" class="subcategory-list" style="display: none">
+      <!--<div class="category-box" onclick="toggleSub('{{ key }}')">
       {{ cat.label }}
     </div>
-    <div id="sub-{{ key }}" class="subcategory-list">
+    <div id="sub-{{ key }}" class="subcategory-list">-->
       {% for sub in cat.subcategories %}
-        <div class="subcategory-item">
-          <a href="{% url 'experts:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}">
-            {{ sub.name }} <span>전문가 {{ sub.count }}명</span>
-          </a>
-        </div>
+      <div
+        class="SubItem"
+        onclick="location.href='{% url 'experts:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}'"
+      >
+        <span class="name">{{ sub.name }}</span>
+        <span class="subCount">전문가 {{ sub.count }}명</span>
+        <!--<a
+          href="{% url 'experts:expert_category' %}?category={{ key }}&subcategory={{ sub.name }}"
+        >
+         
+        </a>-->
+      </div>
       {% endfor %}
     </div>
-  {% endfor %}
-
-  <script>
-    function toggleSub(key) {
-      const el = document.getElementById('sub-' + key);
-      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-    }
-  </script>
-</body>
+    {% endfor %}
+    <footer class="Footer">
+      <div class="Workher">
+        <div class="B_Text">MY workHER 마이워커</div>
+        <div class="S_Text">"당신을 위한 여성 전문가"</div>
+        <div class="S_Text">
+          마이워커는 가전/수리, 헬스/스포츠, 컨설팅/비지니스 등 다양한 분야에서
+          여성 고객과 여성 전문가의 커넥션을 지원하며,
+        </div>
+        <div class="S_Text">
+          여성 가치 증진을 목적으로 하는 혁신 플랫폼입니다.
+        </div>
+      </div>
+      <div class="L_Line"></div>
+      <div class="About">
+        <div class="B_Text">About us</div>
+        <div class="S_Text">
+          PM/DE 김민서 - 숙명여자대학교 멋쟁이 사자처럼 기획/디자인
+        </div>
+        <div class="S_Text">
+          FE 신채영 - 동덕여자대학교 멋쟁이사자처럼 프론트엔드
+        </div>
+        <div class="S_Text">
+          FE 정규은 - 서울여자대학교 멋쟁이사자처럼 프론트엔드
+        </div>
+        <div class="S_Text">
+          BE 고희주 - 덕성여자대학교 멋쟁이사자처럼 백엔드
+        </div>
+        <div class="S_Text">
+          BE 고원정 - 성신여자대학교 멋쟁이사자처럼 백엔드
+        </div>
+      </div>
+    </footer>
+    <script src="{% static 'js/category.js' %}">
+      function toggleSub(key) {
+        const el = document.getElementById("sub-" + key);
+        el.style.display = el.style.display === "block" ? "none" : "block";
+      }
+    </script>
+  </body>
 </html>
