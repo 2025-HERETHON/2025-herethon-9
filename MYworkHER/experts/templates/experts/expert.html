@@ -1,43 +1,155 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>전문가 찾기</title>
+  <link rel="stylesheet" href="{% static 'components/navbar.css' %}"/>
+  <link rel="stylesheet" href="{%static 'css/expert.css'%}">
+  <link rel="stylesheet" href="{% static 'components/footer.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 <body>
+{% include 'components/navbar.html' %}
+<div class="wrapper">
 
-  <h2>전문가 검색</h2>
+  <div id="categoryContainer"></div>
+  <div class="line"></div>
+
   <form id="expert-filter-form" method="get">
-    <input type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
-    <button type="submit">검색</button>
-    <a href="{% url 'experts:category_list' %}">카테고리로 찾기</a>
+    <div class="Top">
+      <div class="SearchBox">
+        <img
+          src="{%static 'img/search.svg'%}"
+          alt="search"
+          width="26px"
+        />
+        <input class="Search" type="text" name="keyword" value="{{ keyword }}" placeholder="전문가명, 한줄소개, 키워드 검색">
+      </div>
+      <button class="SearchCategory">
+        <a href="{% url 'experts:category_list' %}">카테고리로 찾기</a>
+      </button>
+    </div>
+   
+  
+    <div class="SearchLine"></div>
+    <div class="ReText">이런 전문가는 어떠신가요?</div>
 
-
+    <div class="ExpertBoxes" id="Recommend">
+      {% for expert in recommended_experts %}
+        <div class="ExpertBox">
+          <a href="{% url 'experts:expert_detail' expert.user.id %}">
+            <img class="img" src="{%static 'img/profile.svg'%}" alt="profile"/>
+            <div class="ExpertInfo">
+              <div class="NickNameDiv">
+                <div class="Nickname"> {{expert.user.nickname}}</div>
+                {% if expert.badge == 'VERIFIED' %}
+                  <img src="{%static 'img/badgeicon.svg'%}"/> 
+                {% endif %}
+              </div>
+              <div class="Introduce">{{ expert.bio }}</div>
+              <div class="Description">{{ expert.description|truncatechars:100 }}</div>
+            </div>
+          </a>
+        </div> 
+      {% empty %}
+        <div>추천 전문가가 없습니다.</div>
+      {% endfor %}
     <div>
-      <strong>지역</strong><br>
-      {% for region in region_list %}
+
+    <div class="ResultFilter">
+      <div class="ResultText"></div>
+      <button class="Region">
+        지역
+        <img
+          src="{% static 'img/filter.svg'%}"
+          alt="filter"
+          width="12.6px"
+        />
+      </button>
+      <div class="Regioncheck">
+        <div class="RegionTop">
+          <label class="custom-checkbox">
+            <input class="checkbox" type="checkbox" id="checkAll" name="region" value="all"
+            {% if 'all' in selected_region %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">서울시 전체</span>
+          </label>
+        </div>
+      <div class="RegionLine"></div>
+      <div class="RegionGrid">
+        {% for region in region_list %}
         <label>
-          <input type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
-          {{ region }}
+          <input class="checkbox" type="checkbox" name="region" value="{{ region }}" {% if region in selected_region %}checked{% endif %}>
+          <span class="checkmark"></span>
+          <span class="checkbox-label">{{ region }}</span>
         </label>
       {% endfor %}
+      </div>
     </div>
 
-    <div>
-      <strong>경력</strong><br>
-      <label><input type="checkbox" name="experience" value="0" {% if '0' in selected_experience %}checked{% endif %}> 1년 미만</label>
-      <label><input type="checkbox" name="experience" value="1" {% if '1' in selected_experience %}checked{% endif %}> 1년~3년</label>
-      <label><input type="checkbox" name="experience" value="3" {% if '3' in selected_experience %}checked{% endif %}> 3년~5년</label>
-      <label><input type="checkbox" name="experience" value="5" {% if '5' in selected_experience %}checked{% endif %}> 5년 이상</label>
-    </div>
+    <button class="Work">
+      경력
+      <img
+        src="{%static 'img/filter.svg'%}"
+        alt="filter"
+        width="12.6px"
+      />
+    </button>
+    <div class="WorkCheck">
+      <!-- 경력 무관 체크박스 -->
+      <div class="WorkTop">
+        <label class="custom-checkbox">
+          <input class="checkbox" type="checkbox" name="experience" value=""
+            {% if not selected_experience %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">경력 무관</span>
+        </label>
+      </div>
 
-    <div>
-      <label>
-        <input type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
-        인증배지 보유
-      </label>
+      <div class="WorkLine"></div>
+
+      <!-- 경력 선택 필터 반복 출력 -->
+      {% for choice in experience_choices %}
+        <label class="custom-checkbox">
+          <input class="checkbox" type="checkbox" name="experience" value="{{ choice.0 }}"
+              {% if choice.0 in selected_experience %}checked{% endif %}>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">{{ choice.1 }}</span>
+        </label>
+      {% endfor %}
+    </div> 
+    
+    <button class="Badge">
+      인증배지
+        <img
+          src="{% static 'img/filter.svg'%}"
+          alt="filter"
+          width="12.6px"
+        />
+    </button>
+    <div class="BadgeCheck">
+      <div class="BadgeTop">
+        <label class="custom-checkbox">
+          <input class="checkbox" type="checkbox" name="badge" value="all" {% if not badge %}checked{% endif %}>
+          <span class="checkmark"><span>
+          <span class="checkbox-label">전체</span>
+        </label>
+      </div>
+    <div class="BadgeLine"></div> 
+
+    <label class="custom-checkbox">
+        <input  class="checkbox" type="checkbox" name="badge" value="true" {% if badge %}checked{% endif %}>
+        <span class="checkmark"></span>
+        <span class="checkbox-label">인증배지 보유</span>
+    </label>
     </div>
-  </form>
+  </div>
+</form>
+</div>
+ {% include 'components/footer.html' %}
+  
 
   <script>
     document.querySelectorAll('#expert-filter-form input[type="checkbox"]').forEach(function(checkbox) {
@@ -50,6 +162,10 @@
   <hr>
 
   {% if experts %}
+    <span class="BlueText"></span>
+    <span class="BlackText"></span>
+    <span class="BlueText"></span>
+    <span class="BlackText"></span>
     <h3>검색 결과 (총 {{ total_count }}명)</h3>
     <ul>
     {% for expert in experts %}
@@ -85,7 +201,7 @@
 
   {% if not keyword and not selected_region and not selected_experience and not badge %}
   <hr>
-  <h3>추천 전문가</h3>
+  <!--<h3>추천 전문가</h3>
   <ul>
   {% for expert in recommended_experts %}
     <li>
@@ -100,6 +216,8 @@
   {% endfor %}
   </ul>
   {% endif %}
-
+  -->
+  
+  <script src="{%static 'js/expert.js'%}"></script>
 </body>
 </html>
